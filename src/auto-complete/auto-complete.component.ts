@@ -50,6 +50,9 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   private onChangeCallback:Function|false = false;
   private showListChanged:boolean = false;
 
+  @Input() public showEmptyTemplate:boolean = true;
+  @Input() public getItemsOnFocus:boolean = true;
+
   @Input() public alwaysShowList:boolean = false;
   @Input() public autocomplete:string = 'off';
   @Input() public autoFocusSuggestion:boolean = true;
@@ -153,8 +156,8 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   }
 
   @Input()
-  set eager(eager:boolean) {
-    if (eager) {
+  set eager(eager:boolean) {    
+    if (eager) {      
       this.getItems(null, false);
     }
   }
@@ -360,6 +363,10 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    * @param show
    */
   public getItems(event?, show?:boolean):void {
+
+    console.log('getitems');
+    console.log(event);
+
     this.isLoading = true;
 
     if (this.promise) {
@@ -516,8 +523,8 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    *
    * @param event
    */
-  public handleTap(event):void {
-    if (this.showResultsFirst || this.keyword.length > 0) {
+  public handleTap(event):void {    
+    if (this.showResultsFirst || this.keyword.length > 0) {    
       this.getItems();
     }
   }
@@ -590,7 +597,9 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   onFocus(event:any):void {
     this.hasFocus = true;
 
-    this.getItems();
+    if (this.getItemsOnFocus) {
+      this.getItems();
+    }
 
     event = this._reflectName(event);
 

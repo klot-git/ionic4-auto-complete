@@ -143,7 +143,7 @@
         </li>
     </ul>
 
-    <ul *ngIf="suggestions.length === 0 && showSuggestions"
+    <ul *ngIf="suggestions.length === 0 && showSuggestions && showEmptyTemplate"
         [ngStyle]="listStyles()">
         <li [ngStyle]="styles.listItem">
             <ng-template [ngTemplateOutlet]="emptyTemplate || defaultEmptyTemplate"
